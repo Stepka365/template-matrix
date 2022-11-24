@@ -1,6 +1,6 @@
-#include <iostream>
+#include "test.h"
 
 int main(){
-    std::cout << "Hello, World!" << std::endl;
+    test_getter();
     return 0;
 }
