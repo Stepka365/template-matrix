@@ -19,6 +19,8 @@ namespace linalg {
 
         void reshape(size_t rows, size_t cols);
 
+        void reserve(size_t n);
+
         void print();
 
     private:

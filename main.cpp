@@ -1,6 +1,6 @@
 #include "test.h"
 
 int main(){
-    test_base_init();
+    test_reserve();
     return 0;
 }

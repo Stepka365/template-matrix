@@ -23,3 +23,14 @@ void test_base_init(){
     std::cout << m2.empty() << '\n';
 
 }
+
+void test_reserve(){
+    using namespace linalg;
+
+    Matrix m(2, 4);
+    m.reserve(20);
+    m.print();
+    std::cout << "m_capacity " << m.capacity() << ' ';
+    std::cout << "m_rows " << m.rows() << ' ';
+    std::cout << "m_columns " << m.columns() << ' ';
+}
