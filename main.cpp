@@ -1,6 +1,6 @@
 #include "test.h"
 
 int main(){
-    test_getter();
+    test_base_init();
     return 0;
 }

@@ -7,11 +7,19 @@ namespace linalg {
     public:
         Matrix() = default;
 
+        Matrix(size_t rows, size_t cols = 1);
+
         size_t rows() { return m_rows; }
 
         size_t columns() { return m_columns; }
 
         size_t capacity() { return m_capacity; }
+
+        bool empty() { return m_ptr == nullptr; }
+
+        void reshape(size_t rows, size_t cols);
+
+        void print();
 
     private:
         double *m_ptr = nullptr;

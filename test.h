@@ -1,3 +1,3 @@
 #pragma once
 
-void test_getter();
+void test_base_init();
