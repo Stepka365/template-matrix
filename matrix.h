@@ -15,13 +15,13 @@ namespace linalg {
 
         Matrix &operator=(const Matrix &matrix);
 
-        size_t rows() { return m_rows; }
+        size_t rows() const { return m_rows; }
 
-        size_t columns() { return m_columns; }
+        size_t columns() const { return m_columns; }
 
-        size_t capacity() { return m_capacity; }
+        size_t capacity() const { return m_capacity; }
 
-        bool empty() { return m_ptr == nullptr; }
+        bool empty() const { return m_ptr == nullptr; }
 
         void reshape(size_t rows, size_t cols);
 

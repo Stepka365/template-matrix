@@ -73,3 +73,10 @@ void test_copy(){
     std::cout << "m_columns " << m3.columns() << ' ';
     std::cout << std::endl;
 }
+
+void test_const(){
+    using namespace linalg;
+
+    const Matrix m(2, 5);
+
+}
