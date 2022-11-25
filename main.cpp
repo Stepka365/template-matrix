@@ -1,6 +1,6 @@
 #include "test.h"
 
 int main(){
-    test_copy();
+    test_clear();
     return 0;
 }

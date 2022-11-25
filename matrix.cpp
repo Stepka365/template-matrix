@@ -1,5 +1,7 @@
 #include "matrix.h"
 
+#include <utility>
+
 linalg::Matrix::Matrix(size_t rows, size_t cols) {
     m_ptr = new double[rows * cols];
     for (size_t i = 0; i < rows * cols; ++i) {
@@ -30,6 +32,7 @@ linalg::Matrix &linalg::Matrix::operator=(const linalg::Matrix &matrix) {
     m_rows = matrix.m_rows;
     m_columns = matrix.m_columns;
     m_capacity = m_rows * m_columns;
+    return *this;
 }
 
 void linalg::Matrix::reshape(size_t rows, size_t cols) {
@@ -64,6 +67,13 @@ void linalg::Matrix::shrink_to_fit() {
     delete[] m_ptr;
     m_ptr = tmp_ptr;
     m_capacity = m_rows * m_columns;
+}
+
+void linalg::Matrix::swap(linalg::Matrix &matrix) {
+    std::swap(m_ptr, matrix.m_ptr);
+    std::swap(m_rows, matrix.m_rows);
+    std::swap(m_columns, matrix.m_columns);
+    std::swap(m_capacity, matrix.m_capacity);
 }
 
 

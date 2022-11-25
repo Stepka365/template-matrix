@@ -80,3 +80,12 @@ void test_const(){
     const Matrix m(2, 5);
 
 }
+
+void test_clear(){
+    using namespace linalg;
+
+    Matrix m1(2, 4), m2;
+    std::cout << std::boolalpha;
+    std::cout << m1.empty() << '\n';
+    std::cout << m2.empty() << '\n';
+}

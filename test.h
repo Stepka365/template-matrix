@@ -9,3 +9,5 @@ void test_shrink();
 void test_copy();
 
 void test_const();
+
+void test_clear();

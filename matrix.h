@@ -11,9 +11,13 @@ namespace linalg {
 
         Matrix(const Matrix &matrix);
 
+        //Matrix(Matrix &&matrix);
+
         ~Matrix() { delete[]m_ptr; }
 
         Matrix &operator=(const Matrix &matrix);
+
+        //Matrix &operator=(Matrix &&matrix) { swap(matrix); }
 
         size_t rows() const { return m_rows; }
 
@@ -21,7 +25,7 @@ namespace linalg {
 
         size_t capacity() const { return m_capacity; }
 
-        bool empty() const { return m_ptr == nullptr; }
+        bool empty() const { return m_rows == 0 && m_columns == 0; }
 
         void reshape(size_t rows, size_t cols);
 
@@ -31,6 +35,8 @@ namespace linalg {
 
         void clear() { m_columns = m_rows = 0; }
 
+        void swap(Matrix &matrix);
+
         void print();
 
     private:
@@ -39,4 +45,7 @@ namespace linalg {
         size_t m_columns = 0;
         size_t m_capacity = 0;
     };
+
+    inline void swap(Matrix &matrix1, Matrix &matrix2) { matrix1.swap(matrix2); }
 }
+
