@@ -30,3 +30,16 @@ void linalg::Matrix::reserve(size_t n) {
     m_ptr = tmp_ptr;
     m_capacity = n;
 }
+
+void linalg::Matrix::shrink_to_fit() {
+    if (m_capacity == m_rows * m_columns) {
+        return;
+    }
+    double *tmp_ptr = new double[m_rows * m_columns];
+    for (size_t i = 0; i < m_rows * m_columns; ++i){
+        tmp_ptr[i] = m_ptr[i];
+    }
+    delete[] m_ptr;
+    m_ptr = tmp_ptr;
+    m_capacity = m_rows * m_columns;
+}

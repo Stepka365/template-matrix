@@ -21,6 +21,8 @@ namespace linalg {
 
         void reserve(size_t n);
 
+        void shrink_to_fit();
+
         void print();
 
     private:

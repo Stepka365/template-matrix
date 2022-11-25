@@ -34,3 +34,22 @@ void test_reserve(){
     std::cout << "m_rows " << m.rows() << ' ';
     std::cout << "m_columns " << m.columns() << ' ';
 }
+void test_shrink(){
+    using namespace linalg;
+
+    Matrix m(2, 4);
+    m.reserve(20);
+    m.print();
+    std::cout << "m_capacity " << m.capacity() << ' ';
+    std::cout << "m_rows " << m.rows() << ' ';
+    std::cout << "m_columns " << m.columns() << ' ';
+    std::cout << std::endl;
+
+    m.shrink_to_fit();
+    m.print();
+    std::cout << "m_capacity " << m.capacity() << ' ';
+    std::cout << "m_rows " << m.rows() << ' ';
+    std::cout << "m_columns " << m.columns() << ' ';
+    std::cout << std::endl;
+
+}
