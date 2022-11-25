@@ -1,6 +1,6 @@
 #include "test.h"
 
 int main(){
-    test_shrink();
+    test_copy();
     return 0;
 }

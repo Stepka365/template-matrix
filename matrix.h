@@ -9,6 +9,12 @@ namespace linalg {
 
         Matrix(size_t rows, size_t cols = 1);
 
+        Matrix(const Matrix &matrix);
+
+        ~Matrix() { delete[]m_ptr; }
+
+        Matrix &operator=(const Matrix &matrix);
+
         size_t rows() { return m_rows; }
 
         size_t columns() { return m_columns; }
