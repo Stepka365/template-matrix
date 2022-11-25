@@ -43,3 +43,5 @@ void linalg::Matrix::shrink_to_fit() {
     m_ptr = tmp_ptr;
     m_capacity = m_rows * m_columns;
 }
+
+

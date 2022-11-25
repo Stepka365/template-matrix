@@ -23,6 +23,8 @@ namespace linalg {
 
         void shrink_to_fit();
 
+        void clear() { m_columns = m_rows = 0; }
+
         void print();
 
     private:
