@@ -37,7 +37,7 @@ namespace linalg {
 
         void swap(Matrix &matrix);
 
-        void print();
+        friend void print(Matrix&matrix);
 
     private:
         double *m_ptr = nullptr;
