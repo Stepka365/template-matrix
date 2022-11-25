@@ -1,6 +1,6 @@
 #pragma once
 
-void test_base_init();
+void test_init_reshape_empty();
 
 void test_reserve();
 

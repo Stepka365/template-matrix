@@ -3,80 +3,92 @@
 
 #include <iostream>
 
-void test_base_init(){
+void test_init_reshape_empty() {
     using namespace linalg;
 
     Matrix m(2, 4);
-    m.reshape(4, 2);
-    print(m);
-    std::cout << m.empty() << '\n';
-    Matrix m2;
-    std::cout << m2.empty() << '\n';
-
+    if (m.rows() == 2 && m.columns() == 4 && m.capacity() == 8) {
+        try {
+            m.reshape(3, 2);
+        } catch (std::runtime_error &e) {
+            m.reshape(2, 4);
+            if (!m.empty()) {
+                Matrix m2;
+                if (m2.empty()) {
+                    std::cout << __FUNCTION__ << " Passed\n";
+                    return;
+                }
+            }
+        }
+    }
+    std::cout << __FUNCTION__ << " FAILED\n";
 }
 
-void test_reserve(){
+void test_reserve() {
+    using namespace linalg;
+
+    Matrix m(2, 4);
+    m.reserve(3);
+    if (m.capacity() == 8 && m.rows() == 2 && m.columns() == 4) {
+        m.reserve(20);
+        if (m.capacity() == 20 && m.rows() == 2 && m.columns() == 4) {
+            std::cout << __FUNCTION__ << " Passed\n";
+            return;
+        }
+    }
+    std::cout << __FUNCTION__ << " FAILED\n";
+}
+
+void test_shrink() {
     using namespace linalg;
 
     Matrix m(2, 4);
     m.reserve(20);
-    print(m);
-    std::cout << "m_capacity " << m.capacity() << ' ';
-    std::cout << "m_rows " << m.rows() << ' ';
-    std::cout << "m_columns " << m.columns() << ' ';
-}
-void test_shrink(){
-    using namespace linalg;
-
-    Matrix m(2, 4);
-    m.reserve(20);
-    print(m);
-    std::cout << "m_capacity " << m.capacity() << ' ';
-    std::cout << "m_rows " << m.rows() << ' ';
-    std::cout << "m_columns " << m.columns() << ' ';
-    std::cout << std::endl;
-
     m.shrink_to_fit();
-    print(m);
-    std::cout << "m_capacity " << m.capacity() << ' ';
-    std::cout << "m_rows " << m.rows() << ' ';
-    std::cout << "m_columns " << m.columns() << ' ';
-    std::cout << std::endl;
-
+    if (m.capacity() == 8 && m.rows() == 2 && m.columns() == 4) {
+        std::cout << __FUNCTION__ << " Passed\n";
+        return;
+    }
+    std::cout << __FUNCTION__ << " FAILED\n";
 }
 
-void test_copy(){
+void test_copy() {
     using namespace linalg;
 
     Matrix m1(2, 3);
+    m1.reserve(10);
     Matrix m2 = m1;
-    print(m2);
-    std::cout << "m_capacity " << m2.capacity() << ' ';
-    std::cout << "m_rows " << m2.rows() << ' ';
-    std::cout << "m_columns " << m2.columns() << ' ';
-    std::cout << std::endl;
-
-    Matrix m3;
-    m3 = m1;
-    print(m3);
-    std::cout << "m_capacity " << m3.capacity() << ' ';
-    std::cout << "m_rows " << m3.rows() << ' ';
-    std::cout << "m_columns " << m3.columns() << ' ';
-    std::cout << std::endl;
+    if (m2.capacity() == 6 && m2.rows() == 2 && m2.columns() == 3) {
+        Matrix m3;
+        m1.reserve(20);
+        m3 = m1;
+        if (m2.capacity() == 6 && m2.rows() == 2 && m2.columns() == 3){
+            std::cout << __FUNCTION__ << " Passed\n";
+            return;
+        }
+    }
+    std::cout << __FUNCTION__ << " FAILED\n";
 }
 
-void test_const(){
+void test_const() {
     using namespace linalg;
 
     const Matrix m(2, 5);
-
+    m.capacity();
+    m.columns();
+    m.rows();
+    m.empty();
+    std::cout << __FUNCTION__ << " Passed\n";
 }
 
-void test_clear(){
+void test_clear() {
     using namespace linalg;
 
     Matrix m1(2, 4), m2;
-    std::cout << std::boolalpha;
-    std::cout << m1.empty() << '\n';
-    std::cout << m2.empty() << '\n';
+    m1.clear();
+    if (m1.empty() && m2.empty()){
+        std::cout << __FUNCTION__ << " Passed\n";
+        return;
+    }
+    std::cout << __FUNCTION__ << " FAILED\n";
 }

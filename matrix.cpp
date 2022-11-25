@@ -1,6 +1,8 @@
 #include "matrix.h"
 
 #include <utility>
+#include <stdexcept>
+
 
 linalg::Matrix::Matrix(size_t rows, size_t cols) {
     m_ptr = new double[rows * cols];
@@ -37,7 +39,7 @@ linalg::Matrix &linalg::Matrix::operator=(const linalg::Matrix &matrix) {
 
 void linalg::Matrix::reshape(size_t rows, size_t cols) {
     if (rows * cols != m_rows * m_columns) {
-        throw;
+        throw std::runtime_error("Incorrect shape");
     }
     m_rows = rows;
     m_columns = cols;
