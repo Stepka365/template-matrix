@@ -24,6 +24,10 @@ namespace linalg {
 
         Matrix &operator=(Matrix &&matrix);
 
+        double &operator()(size_t row, size_t col) { return m_ptr[row * m_columns + col]; }
+
+        double operator()(size_t row, size_t col) const { return m_ptr[row * m_columns + col]; };
+
         size_t rows() const { return m_rows; }
 
         size_t columns() const { return m_columns; }

@@ -9,5 +9,6 @@ int main() {
     test_clear();
     test_move();
     test_init_list();
+    test_brackets();
     return 0;
 }

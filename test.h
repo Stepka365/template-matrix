@@ -15,3 +15,5 @@ void test_clear();
 void test_move();
 
 void test_init_list();
+
+void test_brackets();

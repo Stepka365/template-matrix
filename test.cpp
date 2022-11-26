@@ -118,10 +118,38 @@ void test_init_list() {
     if (m1.rows() == 5 && m1.columns() == 1 && m1.capacity() == 5) {
         Matrix m2 = {{1, 2, 3},
                      {4, 5, 6}};
-        if (m2.rows() == 2 && m2.columns() == 3 && m2.capacity() == 6){
+        if (m2.rows() == 2 && m2.columns() == 3 && m2.capacity() == 6) {
             std::cout << __FUNCTION__ << " Passed\n";
             return;
         }
     }
     std::cout << __FUNCTION__ << "  FAILED\n";
+}
+
+void test_brackets() {
+    using namespace linalg;
+
+    Matrix m = {{1, 4, 9},
+                {3, 6, 9}};
+
+    double x = m(0, 1);
+    if (x == 4) {
+        x = 24;
+        if (m(0, 1) == 4) {
+            double &elem = m(0, 1);
+            elem = 24;
+            if (m(0, 1) == 24) {
+                const Matrix m2 = std::move(m);
+                double y = m2(1,0);
+                if (y == 3){
+                    y = 50;
+                    if (m2(1,0) == 3){
+                        std::cout << __FUNCTION__ << " Passed\n";
+                        return;
+                    }
+                }
+            }
+        }
+    }
+    std::cout << __FUNCTION__ << " FAILED\n";
 }
