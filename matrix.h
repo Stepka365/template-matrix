@@ -11,13 +11,13 @@ namespace linalg {
 
         Matrix(const Matrix &matrix);
 
-        //Matrix(Matrix &&matrix);
+        Matrix(Matrix &&matrix) { swap(matrix); }
 
         ~Matrix() { delete[]m_ptr; }
 
         Matrix &operator=(const Matrix &matrix);
 
-        //Matrix &operator=(Matrix &&matrix) { swap(matrix); }
+        Matrix &operator=(Matrix &&matrix);
 
         size_t rows() const { return m_rows; }
 
@@ -37,7 +37,7 @@ namespace linalg {
 
         void swap(Matrix &matrix);
 
-        friend void print(Matrix&matrix);
+        friend void print(Matrix &matrix);
 
     private:
         double *m_ptr = nullptr;

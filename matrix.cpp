@@ -14,7 +14,7 @@ linalg::Matrix::Matrix(size_t rows, size_t cols) {
     m_capacity = rows * cols;
 }
 
-linalg::Matrix::Matrix(const linalg::Matrix &matrix) {
+linalg::Matrix::Matrix(const Matrix &matrix) {
     m_ptr = new double[matrix.m_rows * matrix.m_columns];
     for (size_t i = 0; i < matrix.m_rows * matrix.m_columns; ++i) {
         m_ptr[i] = matrix.m_ptr[i];
@@ -24,7 +24,7 @@ linalg::Matrix::Matrix(const linalg::Matrix &matrix) {
     m_capacity = m_rows * m_columns;
 }
 
-linalg::Matrix &linalg::Matrix::operator=(const linalg::Matrix &matrix) {
+linalg::Matrix &linalg::Matrix::operator=(const Matrix &matrix) {
     double *tmp_ptr = new double[matrix.m_rows * matrix.m_columns];
     for (size_t i = 0; i < matrix.m_rows * matrix.m_columns; ++i) {
         tmp_ptr[i] = matrix.m_ptr[i];
@@ -34,6 +34,11 @@ linalg::Matrix &linalg::Matrix::operator=(const linalg::Matrix &matrix) {
     m_rows = matrix.m_rows;
     m_columns = matrix.m_columns;
     m_capacity = m_rows * m_columns;
+    return *this;
+}
+
+linalg::Matrix &linalg::Matrix::operator=(Matrix &&matrix) {
+    swap(matrix);
     return *this;
 }
 

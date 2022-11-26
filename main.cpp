@@ -7,5 +7,6 @@ int main(){
     test_copy();
     test_const();
     test_clear();
+    test_move();
     return 0;
 }

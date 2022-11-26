@@ -92,3 +92,21 @@ void test_clear() {
     }
     std::cout << __FUNCTION__ << " FAILED\n";
 }
+
+void test_move(){
+    using namespace linalg;
+
+    Matrix m1(2, 4), m3;
+    m1.reserve(15);
+    Matrix m2 = Matrix(3, 5);
+    m3 = std::move(m1);
+    if (m1.empty()){
+        if (m3.rows() == 2 && m3.columns() == 4 && m3.capacity() == 15){
+            if (m2.rows() == 3 && m2.columns() == 5 && m2.capacity() == 15){
+                std::cout<< __FUNCTION__ << " Passed\n";
+                return;
+            }
+        }
+    }
+    std::cout << __FUNCTION__ << " FAILED\n";
+}
