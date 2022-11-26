@@ -24,6 +24,38 @@ linalg::Matrix::Matrix(const Matrix &matrix) {
     m_capacity = m_rows * m_columns;
 }
 
+linalg::Matrix::Matrix(std::initializer_list<std::initializer_list<double>> list_of_lists) {
+    size_t rows = list_of_lists.size();
+    size_t columns = list_of_lists.begin()->size();
+    double *ptr = new double[rows * columns];
+    size_t i = 0;
+    for (std::initializer_list<double> list: list_of_lists) {
+        if (list.size() != columns) {
+            delete[] ptr;
+            throw std::runtime_error("Incorrect initialization");
+        }
+        for (double el: list) {
+            ptr[i] = el;
+            ++i;
+        }
+    }
+    m_rows = rows;
+    m_columns = columns;
+    m_capacity = m_rows * m_columns;
+    m_ptr = ptr;
+}
+linalg::Matrix::Matrix(std::initializer_list<double> list){
+    m_ptr = new double[list.size()];
+    size_t i = 0;
+    for (double el: list){
+        m_ptr[i] = el;
+        ++i;
+    }
+    m_rows = list.size();
+    m_columns = 1;
+    m_capacity = m_rows;
+}
+
 linalg::Matrix &linalg::Matrix::operator=(const Matrix &matrix) {
     double *tmp_ptr = new double[matrix.m_rows * matrix.m_columns];
     for (size_t i = 0; i < matrix.m_rows * matrix.m_columns; ++i) {

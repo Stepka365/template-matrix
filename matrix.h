@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstddef>
+#include <initializer_list>
 
 namespace linalg {
     class Matrix {
@@ -12,6 +13,10 @@ namespace linalg {
         Matrix(const Matrix &matrix);
 
         Matrix(Matrix &&matrix) { swap(matrix); }
+
+        Matrix(std::initializer_list<std::initializer_list<double>>);
+
+        Matrix(std::initializer_list<double>);
 
         ~Matrix() { delete[]m_ptr; }
 

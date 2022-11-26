@@ -62,7 +62,7 @@ void test_copy() {
         Matrix m3;
         m1.reserve(20);
         m3 = m1;
-        if (m2.capacity() == 6 && m2.rows() == 2 && m2.columns() == 3){
+        if (m2.capacity() == 6 && m2.rows() == 2 && m2.columns() == 3) {
             std::cout << __FUNCTION__ << " Passed\n";
             return;
         }
@@ -86,27 +86,42 @@ void test_clear() {
 
     Matrix m1(2, 4), m2;
     m1.clear();
-    if (m1.empty() && m2.empty()){
+    if (m1.empty() && m2.empty()) {
         std::cout << __FUNCTION__ << " Passed\n";
         return;
     }
     std::cout << __FUNCTION__ << " FAILED\n";
 }
 
-void test_move(){
+void test_move() {
     using namespace linalg;
 
     Matrix m1(2, 4), m3;
     m1.reserve(15);
     Matrix m2 = Matrix(3, 5);
     m3 = std::move(m1);
-    if (m1.empty()){
-        if (m3.rows() == 2 && m3.columns() == 4 && m3.capacity() == 15){
-            if (m2.rows() == 3 && m2.columns() == 5 && m2.capacity() == 15){
-                std::cout<< __FUNCTION__ << " Passed\n";
+    if (m1.empty()) {
+        if (m3.rows() == 2 && m3.columns() == 4 && m3.capacity() == 15) {
+            if (m2.rows() == 3 && m2.columns() == 5 && m2.capacity() == 15) {
+                std::cout << __FUNCTION__ << " Passed\n";
                 return;
             }
         }
     }
     std::cout << __FUNCTION__ << " FAILED\n";
+}
+
+void test_init_list() {
+    using namespace linalg;
+
+    Matrix m1 = {1, 2, 3, 4, 5};
+    if (m1.rows() == 5 && m1.columns() == 1 && m1.capacity() == 5) {
+        Matrix m2 = {{1, 2, 3},
+                     {4, 5, 6}};
+        if (m2.rows() == 2 && m2.columns() == 3 && m2.capacity() == 6){
+            std::cout << __FUNCTION__ << " Passed\n";
+            return;
+        }
+    }
+    std::cout << __FUNCTION__ << "  FAILED\n";
 }

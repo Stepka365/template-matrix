@@ -1,6 +1,6 @@
 #include "test.h"
 
-int main(){
+int main() {
     test_init_reshape_empty();
     test_reserve();
     test_shrink();
@@ -8,5 +8,6 @@ int main(){
     test_const();
     test_clear();
     test_move();
+    test_init_list();
     return 0;
 }

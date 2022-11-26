@@ -13,3 +13,5 @@ void test_const();
 void test_clear();
 
 void test_move();
+
+void test_init_list();
