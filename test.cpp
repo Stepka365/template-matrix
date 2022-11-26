@@ -153,3 +153,12 @@ void test_brackets() {
     }
     std::cout << __FUNCTION__ << " FAILED\n";
 }
+
+void test_print(){
+    using namespace linalg;
+
+    Matrix m = {{1, 4, 9},
+                {13, 6, 9}};
+
+    std::cout << m;
+}

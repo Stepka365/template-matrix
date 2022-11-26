@@ -46,8 +46,6 @@ namespace linalg {
 
         void swap(Matrix &matrix);
 
-        friend void print(Matrix &matrix);
-
     private:
         double *m_ptr = nullptr;
         size_t m_rows = 0;

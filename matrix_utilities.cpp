@@ -1,12 +1,18 @@
 #include "matrix_utilities.h"
 
-#include <iostream>
-
-void linalg::print(Matrix &matrix) {
-    for (size_t i = 0; i < matrix.m_rows; ++i) {
-        for (size_t j = 0; j < matrix.m_columns; ++j) {
-            std::cout << matrix.m_ptr[i * matrix.m_columns + j] << ' ';
+std::ostream &linalg::operator<<(std::ostream &out, const linalg::Matrix &matrix) {
+    for (size_t i = 0; i < matrix.rows(); ++i) {
+        out << '|';
+        for (size_t j = 0; j < matrix.columns(); ++j) {
+            out.width(5);
+            out << matrix(i, j);
         }
-        std::cout << '\n';
+        out << '|';
+        if (i != matrix.rows() - 1){
+            out << '\n';
+        }
     }
+    return out;
 }
+
+

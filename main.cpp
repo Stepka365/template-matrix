@@ -10,5 +10,6 @@ int main() {
     test_move();
     test_init_list();
     test_brackets();
+    test_print();
     return 0;
 }
