@@ -44,10 +44,11 @@ linalg::Matrix::Matrix(std::initializer_list<std::initializer_list<double>> list
     m_capacity = m_rows * m_columns;
     m_ptr = ptr;
 }
-linalg::Matrix::Matrix(std::initializer_list<double> list){
+
+linalg::Matrix::Matrix(std::initializer_list<double> list) {
     m_ptr = new double[list.size()];
     size_t i = 0;
-    for (double el: list){
+    for (double el: list) {
         m_ptr[i] = el;
         ++i;
     }

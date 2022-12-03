@@ -3,7 +3,7 @@
 
 #include <iostream>
 
-void run_all_tests(){
+void run_all_tests() {
     test_init_reshape_empty();
     test_reserve();
     test_shrink();
@@ -153,10 +153,10 @@ void test_brackets() {
             elem = 24;
             if (m(0, 1) == 24) {
                 const Matrix m2 = std::move(m);
-                double y = m2(1,0);
-                if (y == 3){
+                double y = m2(1, 0);
+                if (y == 3) {
                     y = 50;
-                    if (m2(1,0) == 3){
+                    if (m2(1, 0) == 3) {
                         std::cout << __FUNCTION__ << " Passed\n";
                         return;
                     }
@@ -167,11 +167,11 @@ void test_brackets() {
     std::cout << __FUNCTION__ << " FAILED\n";
 }
 
-void test_print(){
+void test_print() {
     using namespace linalg;
 
-    Matrix m = {{1, 4, 9},
-                {13, 6, 9}};
+    Matrix m = {{1,   40, 9999},
+                {113, 6,  9}};
 
     std::cout << m;
 }
