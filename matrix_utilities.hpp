@@ -1,8 +1,9 @@
-#include "matrix_utilities.h"
+#pragma once
 
 #include <iomanip>
 
-void compute_width(const linalg::Matrix &matrix, size_t &first, size_t &other) {
+template<typename T>
+void compute_width(const linalg::Matrix<T> &matrix, size_t &first, size_t &other) {
     std::stringstream s_str;
     for (size_t i = 0; i < matrix.rows(); ++i) {
         for (size_t j = 0; j < matrix.columns(); ++j) {
@@ -21,7 +22,8 @@ void compute_width(const linalg::Matrix &matrix, size_t &first, size_t &other) {
     }
 }
 
-std::ostream &linalg::operator<<(std::ostream &out, const linalg::Matrix &matrix) {
+template<typename T>
+std::ostream &linalg::operator<<(std::ostream &out, const linalg::Matrix<T> &matrix) {
     if (matrix.empty()) {
         out << "Your matrix is empty! Nothing to print!";
         return out;

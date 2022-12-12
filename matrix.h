@@ -4,6 +4,7 @@
 #include <initializer_list>
 
 namespace linalg {
+    template<typename T = double>
     class Matrix {
     public:
         Matrix() = default;
@@ -12,29 +13,31 @@ namespace linalg {
 
         Matrix(const Matrix &matrix);
 
-        Matrix(Matrix &&matrix) { swap(matrix); }
+        Matrix(Matrix &&matrix) noexcept     { swap(matrix); }
 
-        Matrix(std::initializer_list<std::initializer_list<double>>);
+        template<typename T1>
+        Matrix(std::initializer_list<std::initializer_list<T1>>);
 
-        Matrix(std::initializer_list<double>);
+        template<typename T1>
+        Matrix(std::initializer_list<T1>);
 
-        ~Matrix() { delete[]m_ptr; }
+        ~Matrix() noexcept;
 
         Matrix &operator=(const Matrix &matrix);
 
-        Matrix &operator=(Matrix &&matrix);
+        Matrix &operator=(Matrix &&matrix) noexcept;
 
-        double &operator()(size_t row, size_t col) { return m_ptr[row * m_columns + col]; }
+        T &operator()(size_t row, size_t col) noexcept { return m_ptr[row * m_columns + col]; }
 
-        double operator()(size_t row, size_t col) const { return m_ptr[row * m_columns + col]; };
+        const T &operator()(size_t row, size_t col) const noexcept { return m_ptr[row * m_columns + col]; };
 
-        size_t rows() const { return m_rows; }
+        size_t rows() const noexcept { return m_rows; }
 
-        size_t columns() const { return m_columns; }
+        size_t columns() const noexcept { return m_columns; }
 
-        size_t capacity() const { return m_capacity; }
+        size_t capacity() const noexcept { return m_capacity; }
 
-        bool empty() const { return m_rows == 0 && m_columns == 0; }
+        bool empty() const noexcept { return m_rows == 0 && m_columns == 0; }
 
         void reshape(size_t rows, size_t cols);
 
@@ -42,17 +45,19 @@ namespace linalg {
 
         void shrink_to_fit();
 
-        void clear() { m_columns = m_rows = 0; }
+        void clear() noexcept;
 
-        void swap(Matrix &matrix);
+        void swap(Matrix &matrix) noexcept;
 
     private:
-        double *m_ptr = nullptr;
+        T *m_ptr = nullptr;
         size_t m_rows = 0;
         size_t m_columns = 0;
         size_t m_capacity = 0;
     };
 
-    inline void swap(Matrix &matrix1, Matrix &matrix2) { matrix1.swap(matrix2); }
+    template<typename T>
+    inline void swap(Matrix<T> &matrix1, Matrix<T> &matrix2) noexcept { matrix1.swap(matrix2); }
 }
 
+#include "matrix.hpp"

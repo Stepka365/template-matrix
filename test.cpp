@@ -14,6 +14,7 @@ void run_all_tests() {
     test_init_list();
     test_brackets();
     test_print();
+    test_template();
 }
 
 void test_init_reshape_empty() {
@@ -40,7 +41,8 @@ void test_init_reshape_empty() {
 void test_reserve() {
     using namespace linalg;
 
-    Matrix m(2, 4);
+    Matrix m = {{1, 2, 3, 4},
+                {5, 6, 7, 8}};
     m.reserve(3);
     if (m.capacity() == 8 && m.rows() == 2 && m.columns() == 4) {
         m.reserve(20);
@@ -142,8 +144,8 @@ void test_init_list() {
 void test_brackets() {
     using namespace linalg;
 
-    Matrix m = {{1, 4, 9},
-                {3, 6, 9}};
+    Matrix m = {{1.0, 4.0, 9.0},
+                {3.0, 6.0, 9.0}};
 
     double x = m(0, 1);
     if (x == 4) {
@@ -173,5 +175,12 @@ void test_print() {
     Matrix m = {{1,   40, 9999},
                 {113, 6,  9}};
 
+}
+
+void test_template() {
+    using namespace linalg;
+
+    Matrix<double> m(2,4);
+    m(0,0) = 10.5;
     std::cout << m;
 }
