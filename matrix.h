@@ -50,7 +50,11 @@ namespace linalg {
 
         void swap(Matrix &matrix) noexcept;
 
+        Matrix &operator-();
+
         Matrix &operator+=(const Matrix &matrix);
+
+        Matrix &operator-=(const Matrix &matrix);
 
     private:
         T *m_ptr = nullptr;
@@ -66,6 +70,12 @@ namespace linalg {
     auto operator+(const Matrix<T> &matrix1, const Matrix<T> &matrix2) {
         Matrix<T> result = matrix1;
         return result += matrix2;
+    }
+
+    template<typename T>
+    auto operator-(const Matrix<T> &matrix1, const Matrix<T> &matrix2) {
+        Matrix<T> result = matrix1;
+        return result -= matrix2;
     }
 
     class MatrixException : public std::runtime_error {

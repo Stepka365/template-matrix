@@ -207,12 +207,30 @@ void linalg::Matrix<T>::swap(Matrix &matrix) noexcept {
 }
 
 template<typename T>
-linalg::Matrix<T>& linalg::Matrix<T>::operator+=(const Matrix <T> &matrix) {
-    if (m_rows != matrix.m_rows || m_columns != matrix.m_columns){
+linalg::Matrix<T>& linalg::Matrix<T>::operator-() {
+    for (size_t i = 0; i < m_rows * m_columns; ++i) {
+        m_ptr[i] *= -1;
+    }
+}
+
+template<typename T>
+linalg::Matrix<T> &linalg::Matrix<T>::operator+=(const Matrix <T> &matrix) {
+    if (m_rows != matrix.m_rows || m_columns != matrix.m_columns) {
         throw MatrixCalculateError("Can't + these matrix");
     }
     for (size_t i = 0; i < m_rows * m_columns; ++i) {
         m_ptr[i] += matrix.m_ptr[i];
+    }
+    return *this;
+}
+
+template<typename T>
+linalg::Matrix<T> &linalg::Matrix<T>::operator-=(const Matrix <T> &matrix) {
+    if (m_rows != matrix.m_rows || m_columns != matrix.m_columns) {
+        throw MatrixCalculateError("Can't - these matrix");
+    }
+    for (size_t i = 0; i < m_rows * m_columns; ++i) {
+        m_ptr[i] -= matrix.m_ptr[i];
     }
     return *this;
 }
