@@ -23,3 +23,5 @@ void test_brackets();
 void test_print();
 
 void test_template();
+
+void test_operation();

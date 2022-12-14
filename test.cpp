@@ -14,7 +14,7 @@ void run_all_tests() {
     test_init_list();
     test_brackets();
     test_print();
-    test_template();
+    test_operation();
 }
 
 void test_init_reshape_empty() {
@@ -177,10 +177,15 @@ void test_print() {
 
 }
 
-void test_template() {
+void test_operation() {
     using namespace linalg;
-
-    Matrix<double> m(2,4);
-    m(0,0) = 10.5;
-    std::cout << m;
+    Matrix<int> m1 = {{1, 2},
+                      {3, 4}};
+    Matrix<int> m2 = {{2, 3, 3},
+                      {4, 5, 3}};
+    try {
+        Matrix<int> m3 = m1 + m2;
+    }catch(std::runtime_error &error){
+        std::cout << error.what();
+    }
 }

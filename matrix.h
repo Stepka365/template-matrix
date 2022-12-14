@@ -13,7 +13,7 @@ namespace linalg {
 
         Matrix(const Matrix &matrix);
 
-        Matrix(Matrix &&matrix) noexcept     { swap(matrix); }
+        Matrix(Matrix &&matrix) noexcept { swap(matrix); }
 
         template<typename T1>
         Matrix(std::initializer_list<std::initializer_list<T1>>);
@@ -49,6 +49,8 @@ namespace linalg {
 
         void swap(Matrix &matrix) noexcept;
 
+        Matrix &operator+=(const Matrix &matrix);
+
     private:
         T *m_ptr = nullptr;
         size_t m_rows = 0;
@@ -58,6 +60,12 @@ namespace linalg {
 
     template<typename T>
     inline void swap(Matrix<T> &matrix1, Matrix<T> &matrix2) noexcept { matrix1.swap(matrix2); }
+
+    template<typename T>
+    auto operator+(const Matrix<T> &matrix1, const Matrix<T> &matrix2) {
+        Matrix<T> result = matrix1;
+        return result += matrix2;
+    }
 }
 
 #include "matrix.hpp"

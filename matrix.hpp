@@ -207,4 +207,13 @@ void linalg::Matrix<T>::swap(Matrix &matrix) noexcept {
     std::swap(m_capacity, matrix.m_capacity);
 }
 
-
+template<typename T>
+linalg::Matrix<T>& linalg::Matrix<T>::operator+=(const Matrix <T> &matrix) {
+    if (m_rows != matrix.m_rows || m_columns != matrix.m_columns){
+        throw std::runtime_error("Can't + these matrix");
+    }
+    for (size_t i = 0; i < m_rows * m_columns; ++i) {
+        m_ptr[i] += matrix.m_ptr[i];
+    }
+    return *this;
+}
