@@ -1,7 +1,6 @@
 #pragma once
 
 #include <utility>
-#include <stdexcept>
 
 template<typename T>
 linalg::Matrix<T>::Matrix(size_t rows, size_t cols) {
@@ -56,7 +55,7 @@ linalg::Matrix<T>::Matrix(std::initializer_list<std::initializer_list<T1>> list_
     try {
         for (std::initializer_list<T1> list: list_of_lists) {
             if (list.size() != columns) {
-                throw std::runtime_error("Incorrect initialization");
+                throw MatrixInitError("Incorrect initialization");
             }
             for (T1 el: list) {
                 new(cur_ptr) T(el);
@@ -152,7 +151,7 @@ linalg::Matrix<T> &linalg::Matrix<T>::operator=(Matrix &&matrix) noexcept {
 template<typename T>
 void linalg::Matrix<T>::reshape(size_t rows, size_t cols) {
     if (rows * cols != m_rows * m_columns) {
-        throw std::runtime_error("Incorrect shape");
+        throw MatrixReshapeError("Incorrect shape");
     }
     m_rows = rows;
     m_columns = cols;
@@ -210,7 +209,7 @@ void linalg::Matrix<T>::swap(Matrix &matrix) noexcept {
 template<typename T>
 linalg::Matrix<T>& linalg::Matrix<T>::operator+=(const Matrix <T> &matrix) {
     if (m_rows != matrix.m_rows || m_columns != matrix.m_columns){
-        throw std::runtime_error("Can't + these matrix");
+        throw MatrixCalculateError("Can't + these matrix");
     }
     for (size_t i = 0; i < m_rows * m_columns; ++i) {
         m_ptr[i] += matrix.m_ptr[i];

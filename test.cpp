@@ -181,11 +181,9 @@ void test_operation() {
     using namespace linalg;
     Matrix<int> m1 = {{1, 2},
                       {3, 4}};
-    Matrix<int> m2 = {{2, 3, 3},
-                      {4, 5, 3}};
-    try {
-        Matrix<int> m3 = m1 + m2;
-    }catch(std::runtime_error &error){
-        std::cout << error.what();
-    }
+    Matrix<int> m2 = {{2, 3},
+                      {4, 5}};
+    Matrix<int> m3 = m1 + m2;
+    std::cout << m3;
+
 }

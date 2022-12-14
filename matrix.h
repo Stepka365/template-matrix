@@ -2,6 +2,7 @@
 
 #include <cstddef>
 #include <initializer_list>
+#include <stdexcept>
 
 namespace linalg {
     template<typename T = double>
@@ -66,6 +67,26 @@ namespace linalg {
         Matrix<T> result = matrix1;
         return result += matrix2;
     }
+
+    class MatrixException : public std::runtime_error {
+    public:
+        MatrixException(const char *message) : std::runtime_error(message) {}
+    };
+
+    class MatrixInitError : public MatrixException {
+    public:
+        MatrixInitError(const char *message) : MatrixException(message) {}
+    };
+
+    class MatrixReshapeError : public MatrixException {
+    public:
+        MatrixReshapeError(const char *message) : MatrixException(message) {}
+    };
+
+    class MatrixCalculateError : public MatrixException {
+    public:
+        MatrixCalculateError(const char *message) : MatrixException(message) {}
+    };
 }
 
 #include "matrix.hpp"
