@@ -4,6 +4,7 @@
 
 template<typename T>
 linalg::Matrix<T>::Matrix(size_t rows, size_t cols) {
+    if (rows == 0 || cols == 0) return;
     T *tmp_ptr = reinterpret_cast<T *>(operator new(sizeof(T) * rows * cols));
     T *cur_ptr = tmp_ptr;
     try {
