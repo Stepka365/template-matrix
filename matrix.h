@@ -56,6 +56,8 @@ namespace linalg {
 
         Matrix &operator-=(const Matrix &matrix);
 
+        Matrix &operator*=(const Matrix &matrix);
+
     private:
         T *m_ptr = nullptr;
         size_t m_rows = 0;
@@ -78,6 +80,7 @@ namespace linalg {
         return result -= matrix2;
     }
 
+
     class MatrixException : public std::runtime_error {
     public:
         MatrixException(const char *message) : std::runtime_error(message) {}
@@ -97,6 +100,9 @@ namespace linalg {
     public:
         MatrixCalculateError(const char *message) : MatrixException(message) {}
     };
+
+    template<typename T>
+    auto operator*(const Matrix<T> &matrix1, const Matrix<T> &matrix2);
 }
 
 #include "matrix.hpp"

@@ -183,7 +183,7 @@ void test_operation() {
                       {3, 4}};
     Matrix<int> m2 = {{2, 3},
                       {4, 5}};
-    Matrix<int> m3 = m1 - m2;
+    Matrix<double> m3 = m1 * m2;
     std::cout << m3;
 
 }

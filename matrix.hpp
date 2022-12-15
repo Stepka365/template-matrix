@@ -207,14 +207,14 @@ void linalg::Matrix<T>::swap(Matrix &matrix) noexcept {
 }
 
 template<typename T>
-linalg::Matrix<T>& linalg::Matrix<T>::operator-() {
+linalg::Matrix<T> &linalg::Matrix<T>::operator-() {
     for (size_t i = 0; i < m_rows * m_columns; ++i) {
         m_ptr[i] *= -1;
     }
 }
 
 template<typename T>
-linalg::Matrix<T> &linalg::Matrix<T>::operator+=(const Matrix <T> &matrix) {
+linalg::Matrix<T> &linalg::Matrix<T>::operator+=(const Matrix &matrix) {
     if (m_rows != matrix.m_rows || m_columns != matrix.m_columns) {
         throw MatrixCalculateError("Can't + these matrix");
     }
@@ -225,7 +225,7 @@ linalg::Matrix<T> &linalg::Matrix<T>::operator+=(const Matrix <T> &matrix) {
 }
 
 template<typename T>
-linalg::Matrix<T> &linalg::Matrix<T>::operator-=(const Matrix <T> &matrix) {
+linalg::Matrix<T> &linalg::Matrix<T>::operator-=(const Matrix &matrix) {
     if (m_rows != matrix.m_rows || m_columns != matrix.m_columns) {
         throw MatrixCalculateError("Can't - these matrix");
     }
@@ -234,3 +234,39 @@ linalg::Matrix<T> &linalg::Matrix<T>::operator-=(const Matrix <T> &matrix) {
     }
     return *this;
 }
+
+template<typename T>
+linalg::Matrix<T> &linalg::Matrix<T>::operator*=(const Matrix &matrix) {
+    if (m_columns != matrix.m_rows) {
+        throw MatrixCalculateError("Can't multiply these matrix. columns of own aren't equal to rows of given");
+    }
+    Matrix <T> tmp = Matrix(m_rows, matrix.m_columns);
+    for (size_t i = 0; i < tmp.m_rows; ++i) {
+        for (size_t j = 0; j < tmp.m_columns; ++j) {
+            for (size_t k = 0; k < m_columns; ++k) {
+                tmp(i, j) += (*this)(i, k) * matrix(k, j);
+            }
+        }
+    }
+    return *this = std::move(tmp);
+}
+
+template<typename T>
+auto linalg::operator*(const Matrix <T> &matrix1, const Matrix <T> &matrix2) {
+    if (matrix1.columns() != matrix2.rows()) {
+        throw MatrixCalculateError(
+                "Can't multiply these matrix. columns of the first aren't equal to rows of the second");
+    }
+    auto tmp = Matrix(matrix1.rows(), matrix2.columns());
+    for (size_t i = 0; i < tmp.rows(); ++i) {
+        for (size_t j = 0; j < tmp.columns(); ++j) {
+            for (size_t k = 0; k < matrix1.columns(); ++k) {
+                tmp(i, j) += matrix1(i, k) * matrix2(k, j);
+            }
+        }
+    }
+    return tmp;
+}
+
+
+// x *= y // x = x * y // n m m k
