@@ -233,7 +233,8 @@ linalg::Matrix<T> &linalg::Matrix<T>::operator-() {
 }
 
 template<typename T>
-linalg::Matrix<T> &linalg::Matrix<T>::operator+=(const Matrix &matrix) {
+template<typename Other>
+linalg::Matrix<T> &linalg::Matrix<T>::operator+=(const Matrix <Other> &matrix) {
     if (m_rows != matrix.m_rows || m_columns != matrix.m_columns) {
         throw MatrixCalculateError("Can't + these matrix");
     }
@@ -244,7 +245,8 @@ linalg::Matrix<T> &linalg::Matrix<T>::operator+=(const Matrix &matrix) {
 }
 
 template<typename T>
-linalg::Matrix<T> &linalg::Matrix<T>::operator-=(const Matrix &matrix) {
+template<typename Other>
+linalg::Matrix<T> &linalg::Matrix<T>::operator-=(const Matrix <Other> &matrix) {
     if (m_rows != matrix.m_rows || m_columns != matrix.m_columns) {
         throw MatrixCalculateError("Can't - these matrix");
     }
@@ -254,12 +256,26 @@ linalg::Matrix<T> &linalg::Matrix<T>::operator-=(const Matrix &matrix) {
     return *this;
 }
 
+template<typename T1, typename T2>
+auto operator+(const linalg::Matrix<T1> &matrix1, const linalg::Matrix<T2> &matrix2) {
+    linalg::Matrix<decltype(T1() + T2())> result = matrix1;
+    return result += matrix2;
+}
+
+template<typename T1, typename T2>
+auto operator-(const linalg::Matrix<T1> &matrix1, const linalg::Matrix<T2> &matrix2) {
+    linalg::Matrix<decltype(T1() + T2())> result = matrix1;
+    return result -= matrix2;
+}
+
+
 template<typename T>
-linalg::Matrix<T> &linalg::Matrix<T>::operator*=(const Matrix &matrix) {
+template<typename Other>
+auto linalg::Matrix<T>::operator*=(const Matrix <Other> &matrix) -> decltype(T() * Other()) {
     if (m_columns != matrix.m_rows) {
         throw MatrixCalculateError("Can't multiply these matrix. columns of own aren't equal to rows of given");
     }
-    Matrix <T> tmp = Matrix(m_rows, matrix.m_columns);
+    Matrix<decltype(T() * Other())> tmp = Matrix(m_rows, matrix.m_columns);
     for (size_t i = 0; i < tmp.m_rows; ++i) {
         for (size_t j = 0; j < tmp.m_columns; ++j) {
             for (size_t k = 0; k < m_columns; ++k) {
@@ -267,16 +283,16 @@ linalg::Matrix<T> &linalg::Matrix<T>::operator*=(const Matrix &matrix) {
             }
         }
     }
-    return *this = std::move(tmp);
+    return *this = tmp;
 }
 
-template<typename T>
-auto linalg::operator*(const Matrix <T> &matrix1, const Matrix <T> &matrix2) {
+template<typename T1, typename T2>
+auto linalg::operator*(const Matrix <T1> &matrix1, const Matrix <T2> &matrix2) {
     if (matrix1.columns() != matrix2.rows()) {
         throw MatrixCalculateError(
                 "Can't multiply these matrix. columns of the first aren't equal to rows of the second");
     }
-    auto tmp = Matrix(matrix1.rows(), matrix2.columns());
+    Matrix<decltype(T1() * T2())> tmp = Matrix(matrix1.rows(), matrix2.columns());
     for (size_t i = 0; i < tmp.rows(); ++i) {
         for (size_t j = 0; j < tmp.columns(); ++j) {
             for (size_t k = 0; k < matrix1.columns(); ++k) {

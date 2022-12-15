@@ -192,8 +192,8 @@ void test_types() {
     using namespace linalg;
     Matrix<double> m1 = {{1.2, 2.5},
                          {3.0, 4.3}};
-    Matrix<int> m2 = {{10, 20},
-                      {30, 40}};
-
-    std::cout << m2;
+    Matrix<int> m2 = {{1, 2},
+                      {3, 4}};
+    Matrix<double> m3 = 1.2 * m2;
+    std::cout << m3;
 }

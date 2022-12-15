@@ -61,11 +61,14 @@ namespace linalg {
 
         Matrix &operator-();
 
-        Matrix &operator+=(const Matrix &matrix);
+        template<typename Other>
+        Matrix &operator+=(const Matrix<Other> &matrix);
 
-        Matrix &operator-=(const Matrix &matrix);
+        template<typename Other>
+        Matrix &operator-=(const Matrix<Other> &matrix);
 
-        Matrix &operator*=(const Matrix &matrix);
+        template<typename Other>
+        auto operator*=(const Matrix<Other> &matrix) -> decltype(T() * Other());
 
         template<typename Tn>
         Matrix &operator*=(const Tn &num);
@@ -84,18 +87,20 @@ namespace linalg {
     template<typename T>
     inline void swap(Matrix<T> &matrix1, Matrix<T> &matrix2) noexcept { matrix1.swap(matrix2); }
 
-    template<typename T>
-    auto operator+(const Matrix<T> &matrix1, const Matrix<T> &matrix2) {
-        Matrix<T> result = matrix1;
-        return result += matrix2;
-    }
+    template<typename T1, typename T2>
+    auto operator+(const Matrix<T1> &matrix1, const Matrix<T2> &matrix2);
 
-    template<typename T>
-    auto operator-(const Matrix<T> &matrix1, const Matrix<T> &matrix2) {
-        Matrix<T> result = matrix1;
-        return result -= matrix2;
-    }
+    template<typename T1, typename T2>
+    auto operator-(const Matrix<T1> &matrix1, const Matrix<T2> &matrix2);
 
+    template<typename T1, typename T2>
+    auto operator*(const Matrix<T1> &matrix1, const Matrix<T2> &matrix2);
+
+    template<typename T, typename Tn>
+    auto operator*(const Matrix<T> &matrix, const Tn &num);
+
+    template<typename T, typename Tn>
+    auto operator*(const Tn &num, const Matrix<T> &matrix);
 
     class MatrixException : public std::runtime_error {
     public:
@@ -117,14 +122,6 @@ namespace linalg {
         MatrixCalculateError(const char *message) : MatrixException(message) {}
     };
 
-    template<typename T>
-    auto operator*(const Matrix<T> &matrix1, const Matrix<T> &matrix2);
-
-    template<typename T, typename Tn>
-    auto operator*(const Matrix<T> &matrix, const Tn &num);
-
-    template<typename T, typename Tn>
-    auto operator*(const Tn &num, const Matrix<T> &matrix);
 }
 
 #include "matrix.hpp"
