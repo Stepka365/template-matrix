@@ -146,8 +146,8 @@ linalg::Matrix<T> &linalg::Matrix<T>::operator=(const Matrix <T2> &matrix) {
             --i;
             for (; i >= m_rows * m_columns; --i) {
                 m_ptr[i].~T();
-                throw;
             }
+            throw;
         }
     } else {
         for (; i < matrix.m_rows * matrix.m_columns; ++i) { // Dest
