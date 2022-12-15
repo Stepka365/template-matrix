@@ -256,19 +256,6 @@ linalg::Matrix<T> &linalg::Matrix<T>::operator-=(const Matrix <Other> &matrix) {
     return *this;
 }
 
-template<typename T1, typename T2>
-auto operator+(const linalg::Matrix<T1> &matrix1, const linalg::Matrix<T2> &matrix2) {
-    linalg::Matrix<decltype(T1() + T2())> result = matrix1;
-    return result += matrix2;
-}
-
-template<typename T1, typename T2>
-auto operator-(const linalg::Matrix<T1> &matrix1, const linalg::Matrix<T2> &matrix2) {
-    linalg::Matrix<decltype(T1() + T2())> result = matrix1;
-    return result -= matrix2;
-}
-
-
 template<typename T>
 template<typename Other>
 auto linalg::Matrix<T>::operator*=(const Matrix <Other> &matrix) -> decltype(T() * Other()) {
@@ -323,3 +310,31 @@ auto linalg::operator*(const Tn &num, const Matrix <T> &matrix) {
     Matrix<decltype(T() * Tn())> res = matrix;
     return res *= num;
 }
+
+/*template<typename T>
+double linalg::Matrix<T>::det() {
+    if (m_rows != m_columns) {
+        throw MatrixCalculateError("Can't calculate det of this matrix");
+    }
+    if (m_rows == 1) {
+        return m_ptr[0];
+    } else {
+        double res = 0;
+        for (size_t lin = 0; lin < m_rows; ++lin) {
+            Matrix <T> tmp = Matrix(m_rows - 1, m_columns - 1);
+            for (size_t i = 0, i_tmp = 0; i < m_rows * m_columns; ++i) {
+                if (!((i >= lin * m_columns && i < lin * m_columns + m_columns) || i % m_columns == lin)) {
+                    tmp.m_ptr[i_tmp] = m_ptr[i];
+                    ++i_tmp;
+                }
+            }
+            double det_cur = tmp.det();
+            if (lin % 2 == 0) {
+                res += det_cur * (*this)(lin, 0);
+            } else {
+                res -= det_cur * (*this)(lin, 0);
+            }
+        }
+        return res;
+    }
+}*/

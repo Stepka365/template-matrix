@@ -27,3 +27,5 @@ void test_template();
 void test_operation();
 
 void test_types();
+
+void test_det();

@@ -73,6 +73,8 @@ namespace linalg {
         template<typename Tn>
         Matrix &operator*=(const Tn &num);
 
+        //double det();
+
     private:
         template<typename T2>
         void copy_constructor(const Matrix<T2> &matrix);
@@ -88,10 +90,16 @@ namespace linalg {
     inline void swap(Matrix<T> &matrix1, Matrix<T> &matrix2) noexcept { matrix1.swap(matrix2); }
 
     template<typename T1, typename T2>
-    auto operator+(const Matrix<T1> &matrix1, const Matrix<T2> &matrix2);
+    auto operator+(const linalg::Matrix<T1> &matrix1, const linalg::Matrix<T2> &matrix2) {
+        linalg::Matrix<decltype(T1() + T2())> result = matrix1;
+        return result += matrix2;
+    }
 
     template<typename T1, typename T2>
-    auto operator-(const Matrix<T1> &matrix1, const Matrix<T2> &matrix2);
+    auto operator-(const linalg::Matrix<T1> &matrix1, const linalg::Matrix<T2> &matrix2) {
+        linalg::Matrix<decltype(T1() + T2())> result = matrix1;
+        return result -= matrix2;
+    }
 
     template<typename T1, typename T2>
     auto operator*(const Matrix<T1> &matrix1, const Matrix<T2> &matrix2);

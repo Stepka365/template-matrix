@@ -16,6 +16,7 @@ void run_all_tests() {
     test_print();
     test_operation();
     test_types();
+    test_det();
 }
 
 void test_init_reshape_empty() {
@@ -184,8 +185,9 @@ void test_operation() {
                       {3, 4}};
     Matrix<int> m2 = {{2, 3},
                       {4, 5}};
+    Matrix<int> m4 = m1 * m2;
     Matrix<int> m3 = 3 * m2;
-    //std::cout << m3;
+    std::cout << m4;
 }
 
 void test_types() {
@@ -195,5 +197,14 @@ void test_types() {
     Matrix<int> m2 = {{1, 2},
                       {3, 4}};
     Matrix<double> m3 = 1.2 * m2;
-    std::cout << m3;
+    //std::cout << m3 << '\n';
+}
+
+void test_det() {
+    using namespace linalg;
+
+    Matrix m1 = {{1, 2},
+                 {3, 4}};
+    //std::cout << m1 << '\n';
+    //std::cout << m1.det();
 }
