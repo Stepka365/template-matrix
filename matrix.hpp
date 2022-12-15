@@ -143,6 +143,7 @@ linalg::Matrix<T> &linalg::Matrix<T>::operator=(const Matrix <T2> &matrix) {
                 new(m_ptr + i) T(matrix.m_ptr[i]);
             }
         } catch (...) {
+            --i;
             for (; i >= m_rows * m_columns; --i) {
                 m_ptr[i].~T();
                 throw;
