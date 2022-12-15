@@ -26,10 +26,23 @@ linalg::Matrix<T>::Matrix(size_t rows, size_t cols) {
 
 template<typename T>
 linalg::Matrix<T>::Matrix(const Matrix &matrix) {
+    copy_constructor(matrix);
+}
+
+template<typename T>
+template<typename T2>
+linalg::Matrix<T>::Matrix(const Matrix <T2> &matrix) {
+    copy_constructor(matrix);
+}
+
+template<typename T>
+template<typename T2>
+void linalg::Matrix<T>::copy_constructor(const Matrix <T2> &matrix) {
+    if (matrix.m_rows == 0) return;
     T *tmp_ptr = reinterpret_cast<T *>(operator new(sizeof(T) * matrix.m_rows * matrix.m_columns));
     T *cur_ptr = tmp_ptr;
     try {
-        for (T *ptr = matrix.m_ptr; ptr != matrix.m_ptr + matrix.m_rows * matrix.m_columns;
+        for (T2 *ptr = matrix.m_ptr; ptr != matrix.m_ptr + matrix.m_rows * matrix.m_columns;
              ++cur_ptr, ++ptr)
             new(cur_ptr) T(*ptr);
     } catch (...) {
@@ -111,6 +124,12 @@ linalg::Matrix<T> &linalg::Matrix<T>::operator=(const Matrix &matrix) {
     if (&matrix == this) {
         return *this;
     }
+    return operator=<T>(matrix);
+}
+
+template<typename T>
+template<typename T2>
+linalg::Matrix<T> &linalg::Matrix<T>::operator=(const Matrix <T2> &matrix) {
     if (matrix.m_rows * matrix.m_columns > m_capacity) {
         return *this = Matrix(matrix);
     }
@@ -209,7 +228,7 @@ void linalg::Matrix<T>::swap(Matrix &matrix) noexcept {
 template<typename T>
 linalg::Matrix<T> &linalg::Matrix<T>::operator-() {
     for (size_t i = 0; i < m_rows * m_columns; ++i) {
-        m_ptr[i] *= -1;
+        m_ptr[i] = -m_ptr[i];
     }
 }
 

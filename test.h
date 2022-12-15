@@ -25,3 +25,5 @@ void test_print();
 void test_template();
 
 void test_operation();
+
+void test_types();

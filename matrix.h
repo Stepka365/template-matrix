@@ -8,11 +8,17 @@ namespace linalg {
     template<typename T = double>
     class Matrix {
     public:
+        template<typename Other> friend
+        class Matrix;
+
         Matrix() = default;
 
         Matrix(size_t rows, size_t cols = 1);
 
         Matrix(const Matrix &matrix);
+
+        template<typename T2>
+        Matrix(const Matrix<T2> &matrix);
 
         Matrix(Matrix &&matrix) noexcept { swap(matrix); }
 
@@ -25,6 +31,9 @@ namespace linalg {
         ~Matrix() noexcept;
 
         Matrix &operator=(const Matrix &matrix);
+
+        template<typename T2>
+        Matrix &operator=(const Matrix<T2> &matrix);
 
         Matrix &operator=(Matrix &&matrix) noexcept;
 
@@ -60,6 +69,10 @@ namespace linalg {
 
         template<typename Tn>
         Matrix &operator*=(const Tn &num);
+
+    private:
+        template<typename T2>
+        void copy_constructor(const Matrix<T2> &matrix);
 
     private:
         T *m_ptr = nullptr;

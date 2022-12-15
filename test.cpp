@@ -15,6 +15,7 @@ void run_all_tests() {
     test_brackets();
     test_print();
     test_operation();
+    test_types();
 }
 
 void test_init_reshape_empty() {
@@ -184,5 +185,15 @@ void test_operation() {
     Matrix<int> m2 = {{2, 3},
                       {4, 5}};
     Matrix<int> m3 = 3 * m2;
-    std::cout << m3;
+    //std::cout << m3;
+}
+
+void test_types() {
+    using namespace linalg;
+    Matrix<double> m1 = {{1.2, 2.5},
+                         {3.0, 4.3}};
+    Matrix<int> m2 = {{10, 20},
+                      {30, 40}};
+
+    std::cout << m2;
 }
