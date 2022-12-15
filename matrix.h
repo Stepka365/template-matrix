@@ -58,6 +58,9 @@ namespace linalg {
 
         Matrix &operator*=(const Matrix &matrix);
 
+        template<typename Tn>
+        Matrix &operator*=(const Tn &num);
+
     private:
         T *m_ptr = nullptr;
         size_t m_rows = 0;
@@ -103,6 +106,12 @@ namespace linalg {
 
     template<typename T>
     auto operator*(const Matrix<T> &matrix1, const Matrix<T> &matrix2);
+
+    template<typename T, typename Tn>
+    auto operator*(const Matrix<T> &matrix, const Tn &num);
+
+    template<typename T, typename Tn>
+    auto operator*(const Tn &num, const Matrix<T> &matrix);
 }
 
 #include "matrix.hpp"

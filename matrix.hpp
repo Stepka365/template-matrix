@@ -268,5 +268,23 @@ auto linalg::operator*(const Matrix <T> &matrix1, const Matrix <T> &matrix2) {
     return tmp;
 }
 
+template<typename T>
+template<typename Tn>
+linalg::Matrix<T> &linalg::Matrix<T>::operator*=(const Tn &num) {
+    for (size_t i = 0; i < m_rows * m_columns; ++i) {
+        m_ptr[i] *= num;
+    }
+    return *this;
+}
 
-// x *= y // x = x * y // n m m k
+template<typename T, typename Tn>
+auto linalg::operator*(const Matrix <T> &matrix, const Tn &num) {
+    Matrix<decltype(T() * Tn())> res = matrix;
+    return res *= num;
+}
+
+template<typename T, typename Tn>
+auto linalg::operator*(const Tn &num, const Matrix <T> &matrix) {
+    Matrix<decltype(T() * Tn())> res = matrix;
+    return res *= num;
+}
