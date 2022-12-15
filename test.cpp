@@ -197,14 +197,16 @@ void test_types() {
     Matrix<int> m2 = {{1, 2},
                       {3, 4}};
     m1 *= m2;
-    std::cout << m1 << '\n';
+    //std::cout << m1 << '\n';
 }
 
 void test_det() {
     using namespace linalg;
 
-    Matrix m1 = {{1, 2},
-                 {3, 4}};
-    //std::cout << m1 << '\n';
-    //std::cout << m1.det();
+    Matrix<int> m1 = {{1, 2, 3},
+                      {3, 4, 6},
+                      {7, 8, 9}};
+    int x = m1[0][1];
+    std::cout << x;
 }
+

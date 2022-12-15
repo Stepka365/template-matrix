@@ -73,7 +73,19 @@ namespace linalg {
         template<typename Tn>
         Matrix &operator*=(const Tn &num);
 
-        //double det();
+        double det();
+
+        class Line {
+        public:
+            Line(T *ptr) : m_ptr(ptr) {}
+
+            T &operator[](size_t j) { return m_ptr[j]; }
+
+        private:
+            T *m_ptr = nullptr;
+        };
+
+        Line operator[](size_t i) { return Line(m_ptr + i * m_columns); }
 
     private:
         template<typename T2>

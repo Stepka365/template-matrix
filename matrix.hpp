@@ -171,7 +171,7 @@ linalg::Matrix<T> &linalg::Matrix<T>::operator=(Matrix &&matrix) noexcept {
 
 template<typename T>
 void linalg::Matrix<T>::reshape(size_t rows, size_t cols) {
-    if (rows * cols != m_rows * m_columns) {
+    if (rows * cols != m_rows * m_columns || rows == 0 || cols == 0) {
         throw MatrixReshapeError("Incorrect shape");
     }
     m_rows = rows;
