@@ -193,6 +193,7 @@ void linalg::Matrix<T>::reserve(size_t n) {
             ptr->~T();
         }
         delete reinterpret_cast<void *>(tmp_ptr);
+        throw;
     }
     for (T *ptr = m_ptr; ptr != m_ptr + m_rows * m_columns; ++ptr) {
         ptr->~T();
