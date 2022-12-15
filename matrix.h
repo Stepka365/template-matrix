@@ -68,7 +68,7 @@ namespace linalg {
         Matrix &operator-=(const Matrix<Other> &matrix);
 
         template<typename Other>
-        auto operator*=(const Matrix<Other> &matrix) -> decltype(T() * Other());
+        auto operator*=(const Matrix<Other> &matrix) -> Matrix<decltype(T() * Other())>;
 
         template<typename Tn>
         Matrix &operator*=(const Tn &num);

@@ -187,7 +187,7 @@ void test_operation() {
                       {4, 5}};
     Matrix<int> m4 = m1 * m2;
     Matrix<int> m3 = 3 * m2;
-    std::cout << m4;
+    //std::cout << m4;
 }
 
 void test_types() {
@@ -196,8 +196,8 @@ void test_types() {
                          {3.0, 4.3}};
     Matrix<int> m2 = {{1, 2},
                       {3, 4}};
-    Matrix<double> m3 = 1.2 * m2;
-    //std::cout << m3 << '\n';
+    m1 *= m2;
+    std::cout << m1 << '\n';
 }
 
 void test_det() {

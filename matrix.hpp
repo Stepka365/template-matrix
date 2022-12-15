@@ -258,7 +258,7 @@ linalg::Matrix<T> &linalg::Matrix<T>::operator-=(const Matrix <Other> &matrix) {
 
 template<typename T>
 template<typename Other>
-auto linalg::Matrix<T>::operator*=(const Matrix <Other> &matrix) -> decltype(T() * Other()) {
+auto linalg::Matrix<T>::operator*=(const Matrix <Other> &matrix) -> Matrix<decltype(T() * Other())> {
     if (m_columns != matrix.m_rows) {
         throw MatrixCalculateError("Can't multiply these matrix. columns of own aren't equal to rows of given");
     }
