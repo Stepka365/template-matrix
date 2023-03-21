@@ -26,7 +26,8 @@ void test_init_reshape_empty() {
     if (m.rows() == 2 && m.columns() == 4 && m.capacity() == 8) {
         try {
             m.reshape(3, 2);
-        } catch (std::runtime_error &e) {
+        }
+        catch (std::runtime_error& e) {
             m.reshape(2, 4);
             if (!m.empty()) {
                 Matrix m2;
@@ -153,7 +154,7 @@ void test_brackets() {
     if (x == 4) {
         x = 24;
         if (m(0, 1) == 4) {
-            double &elem = m(0, 1);
+            double& elem = m(0, 1);
             elem = 24;
             if (m(0, 1) == 24) {
                 const Matrix m2 = std::move(m);
@@ -192,21 +193,21 @@ void test_operation() {
 
 void test_types() {
     using namespace linalg;
-    Matrix<double> m1 = {{1.2, 2.5},
-                         {3.0, 4.3}};
+    Matrix<double> m1 = {{1.2222, 2.5},
+                         {3.0,    4.3}};
     Matrix<int> m2 = {{1, 2},
                       {3, 4}};
-    m1 *= m2;
-    //std::cout << m1 << '\n';
+
+    std::cout << m1 << '\n';
 }
+
+#include <string>
 
 void test_det() {
     using namespace linalg;
 
-    Matrix<int> m1 = {{1, 2, 3},
-                      {3, 4, 6},
-                      {7, 8, 9}};
-    int x = m1[0][1];
-    std::cout << x;
+    Matrix<std::string> m1 = {"abc", "cde"};
+    Matrix<std::string> m2 = {"zxc", "ZXC"};
+    //std::cout << m1 + m2;
 }
 
