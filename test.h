@@ -29,3 +29,5 @@ void test_operation();
 void test_types();
 
 void test_det();
+
+void test_test();

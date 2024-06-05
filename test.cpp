@@ -17,6 +17,7 @@ void run_all_tests() {
     test_operation();
     test_types();
     test_det();
+    test_test();
 }
 
 void test_init_reshape_empty() {
@@ -193,12 +194,12 @@ void test_operation() {
 
 void test_types() {
     using namespace linalg;
-    Matrix<double> m1 = {{1.2222, 2.5},
+    Matrix<double> m1 = {{-2.0, 222222222222.0},
                          {3.0,    4.3}};
     Matrix<int> m2 = {{1, 2},
                       {3, 4}};
 
-    std::cout << m1 << '\n';
+    std::cout << std::showpoint<< m1 << '\n';
 }
 
 #include <string>
@@ -211,3 +212,9 @@ void test_det() {
     //std::cout << m1 + m2;
 }
 
+void test_test() {
+    linalg::Matrix m = {{1},
+                        {2},
+                        {3}};
+    std::cout << m;
+}
